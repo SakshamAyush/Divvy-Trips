@@ -132,4 +132,13 @@ function linechart(weekData)
         .y(function(d) { return yScaleLine(d.Value) })
         )
 
+        linesvg.selectAll("circle")
+        .data(weekValues)
+        .enter()
+        .append("circle")
+        .attr("cx", function(dd) {return xScaleLine(dd.Day)})
+        .attr("cy", function(dd) {return yScaleLine(dd.Value)})
+        .attr("r", 5)
+        .attr("fill","black");
+
 }
