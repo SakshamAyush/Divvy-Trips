@@ -57,14 +57,79 @@ vizbar = async () =>{
     barsvg.append('g').call(d3.axisLeft(yScale)).attr('transform', `translate(${margin.left},0)`)
 
     barsvg.selectAll('rect')
-    .data(monthValues)
-    .enter()
-    .append('rect')
-      .attr('x', d => xScale(d.Month))
-      .attr('y', d => yScale(d.Value))
-      .attr('height', d => yScale(0) - yScale(d.Value))
-      .attr('width', xScale.bandwidth())
-      .attr('fill', "blue");
+          .data(monthValues)
+          .enter()
+          .append('rect')
+          .attr('x', d => xScale(d.Month))
+          .attr('y', d => yScale(d.Value))
+          .attr('height', d => yScale(0) - yScale(d.Value))
+          .attr('width', xScale.bandwidth())
+          .attr('fill', "blue")
+          .on("click",function(d){
+            barsvg.selectAll("rect").attr("fill","blue")
+            d3.select(this).attr("fill","black")
+            linechart(monthData[monthName.indexOf(d.Month)])
+          });
 
 }
 vizbar()
+
+function linechart(weekData)
+{
+    let dayCount = [0,0,0,0,0,0,0]
+    let dayName = ["Sun","Mon","Tue","Wed","Thur","Fri","Sat"]
+    let tempName = dayName
+    let weekValues = []
+    let weekmax = Number.NEGATIVE_INFINITY;
+    let weekmin = Number.POSITIVE_INFINITY;
+    for(let i=0;i<7;i++)
+    {
+        let temp = {"Day": dayName[i], "Value":weekData[i]}
+        weekValues.push(temp)
+        if(weekmax<weekData[i])
+        {
+            weekmax = weekData[i]
+        }
+        if(weekmin>weekData[i])
+        {
+            weekmin = weekData[i]
+        }
+    }
+    weekValues.push(weekValues.shift());
+    tempName.push(tempName.shift());
+    console.log(weekValues)
+    console.log(weekmin)
+    let linesvg = d3.select("#linechart")
+    d3.selectAll("#linechart > *").remove(); 
+    let linewidth = 700;
+    let lineheight = 550
+    const margin = { left: 70, top: 10, right: 30, bottom: 50 }
+
+    let xScaleLine = d3.scaleBand()
+    .padding(1)
+    .range([margin.left, linewidth - margin.right])
+    .domain(tempName)
+
+    linesvg.append('g').call(d3.axisBottom(xScaleLine)).attr('transform', `translate(0,${lineheight - margin.bottom})`)
+
+    const yScaleLine = d3.scaleLinear()
+    .range([lineheight - margin.bottom, margin.top])
+    .domain([weekmin-4000,weekmax+1000])
+
+    linesvg.append('g').call(d3.axisLeft(yScaleLine)).attr('transform', `translate(${margin.left},0)`)
+
+    const line = d3.line()
+    .x(d => xScaleLine(d.Day))
+    .y(d => yScaleLine(d.Value))
+
+    linesvg.append("path")
+      .datum(weekValues)
+      .attr("fill", "none")
+      .attr("stroke", "teal")
+      .attr("stroke-width", 2)
+      .attr("d", d3.line()
+        .x(function(d) { return xScaleLine(d.Day) })
+        .y(function(d) { return yScaleLine(d.Value) })
+        )
+
+}
