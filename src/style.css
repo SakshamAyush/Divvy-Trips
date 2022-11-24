@@ -1,0 +1,22 @@
+/*For banner */
+.banner {
+    background: #2C3333;
+    height: 70px;
+  }
+  
+  .banner_content {
+      color: #E7F6F2;
+      padding: 10px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 30px;
+      flex-grow: 1;
+      font-family: 'Quicksand', sans-serif ;
+  }
+  #visual1 {
+    padding: 10px 10px;
+    height: 670px;
+    align-items: center ;
+    background-color: rgb(213, 229, 231);
+  }
