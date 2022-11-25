@@ -22,7 +22,15 @@
     background-color: rgb(175, 226, 233);
   }
 
-  #visual2 {
+  #map1 {
+    padding: 10px 10px;
+    height: 670px;
+    align-items: center ;
+    margin-top: 10px;
+    background-color: rgb(162, 225, 234);
+  }
+
+  #map2 {
     padding: 10px 10px;
     height: 670px;
     align-items: center ;

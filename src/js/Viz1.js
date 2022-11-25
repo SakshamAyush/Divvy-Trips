@@ -87,8 +87,8 @@ vizbar = async () =>{
 
 
     //Map-1
-    let map = L.map('visual2').setView([41.85, -87.68], 12); // Chicago origins
-    let osmLayer = L.tileLayer( // 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png')
+    let map = L.map('map1').setView([41.85, -87.68], 12); // Chicago origins
+    L.tileLayer( // 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png')
       'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors, &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>',
       detectRetina: false,
@@ -139,7 +139,73 @@ vizbar = async () =>{
     
       map.addLayer(geoLayer);
     
+      //Map-2
+      let map2 = L.map('map2').setView([41.85, -87.68], 12); // Chicago origins
+        let osmLayer = L.tileLayer( // 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png')
+    'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors, &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>',
+    detectRetina: false,
+    noWrap: false,
+    subdomains: 'abc'
+  }).addTo(map2);
 
+  let geoLayer2 = L.geoJson(geoData, {
+    pointToLayer: function (feature, latlng) {
+      var marker = {}
+      if((feature.properties.trip_count)>=30000)
+        {
+           marker = {
+              radius: 11,
+              fillColor: "#06382B",
+              color: "black",
+              weight: 1,
+              opacity: 0.8,
+              fillOpacity: 0.8
+            };
+        }
+      if((feature.properties.trip_count)<30000 && (feature.properties.trip_count)>20000)
+        {
+          marker = {
+              radius: 7,
+              fillColor: "#0B6F56",
+              color: "black",
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.8
+            };
+        }
+      if((feature.properties.trip_count)<20000 && (feature.properties.trip_count)>10000)
+        {
+             marker = {
+              radius: 5,
+              fillColor: "#14CC9E",
+              color: "black",
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.8
+            };
+        }
+   if((feature.properties.trip_count)<10000)
+        {
+           marker = {
+              radius: 5,
+              fillColor: "#D1F2EB",
+              color: "black",
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.8
+            };
+        }
+    return L.circleMarker(latlng, marker);
+  },
+    onEachFeature: function (feature, layer) {
+      const data = feature.properties;
+      layer.bindTooltip(`<b>Station Name:</b> ${data.name} <br />
+        <b>Trips Taken:</b> ${data.trip_count}`, {sticky: true});
+    }
+  });  
+
+  map2.addLayer(geoLayer2);
 
 }
 vizbar()
@@ -167,8 +233,7 @@ function linechart(weekData)
     }
     weekValues.push(weekValues.shift());
     tempName.push(tempName.shift());
-    //console.log(weekValues)
-    //console.log(weekmin)
+
     let linesvg = d3.select("#linechart")
     d3.selectAll("#linechart > *").remove(); 
     let linewidth = 700;
