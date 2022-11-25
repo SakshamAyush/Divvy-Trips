@@ -18,5 +18,25 @@
     padding: 10px 10px;
     height: 670px;
     align-items: center ;
-    background-color: rgb(213, 229, 231);
+    margin-top: 10px;
+    background-color: rgb(175, 226, 233);
+  }
+
+  #visual2 {
+    padding: 10px 10px;
+    height: 670px;
+    align-items: center ;
+    margin-top: 10px;
+    background-color: rgb(162, 225, 234);
+  }
+
+  #arrow {
+    box-sizing: border-box;
+    height: 5vw;
+    width: 5vw;
+    border-style: solid;
+    border-color: white;
+    border-width: 0px 1px 1px 0px;
+    transform: rotate(45deg);
+    transition: border-width 150ms ease-in-out;
   }

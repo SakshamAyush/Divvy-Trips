@@ -1,5 +1,6 @@
 vizbar = async () =>{
     let data = await d3.csv("../Divvy_2019.csv");
+    let stationData = await d3.csv("Data/Divvy_Stations_2017_Q1Q2.csv")
 
     let monthData = {0:{0:0,1:0,2:0,3:0,4:0,5:0,6:0},
                      1:{0:0,1:0,2:0,3:0,4:0,5:0,6:0},
@@ -13,13 +14,26 @@ vizbar = async () =>{
                      9:{0:0,1:0,2:0,3:0,4:0,5:0,6:0},
                      10:{0:0,1:0,2:0,3:0,4:0,5:0,6:0},
                      11:{0:0,1:0,2:0,3:0,4:0,5:0,6:0}};
+    for(let i=0; i<stationData.length; i++)
+    {
+        stationData[i]['trip_count']=0;
+        stationData[i].dpcapacity = parseInt(stationData[i].dpcapacity)
+    }
     for(let i=0;i<data.length;i++)
     {
         let date = data[i].start_time;
         let month = new Date(date).getMonth()
         let day = new Date(date).getDay()
         monthData[month][day] = monthData[month][day] + 1;
+        for(let j=0;j<stationData.length;j++)
+        {
+            if(stationData[j].name == data[i].from_station_name)
+            {
+                stationData[j]['trip_count']= stationData[j]['trip_count'] + 1
+            }
+        }
     }
+    console.log(stationData)
 
     let barsvg = d3.select("#barchart")
     let monthName =["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
@@ -71,6 +85,62 @@ vizbar = async () =>{
             linechart(monthData[monthName.indexOf(d.Month)])
           });
 
+
+    //Map-1
+    let map = L.map('visual2').setView([41.85, -87.68], 12); // Chicago origins
+    let osmLayer = L.tileLayer( // 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png')
+      'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors, &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>',
+      detectRetina: false,
+      noWrap: false,
+      subdomains: 'abc'
+    }).addTo(map);
+  
+     map.scrollWheelZoom.disable();
+
+    let geoData = getGeoDataPoints(stationData)
+    console.log(geoData)
+
+    let geoLayer = L.geoJson(geoData, {
+        pointToLayer: function (feature, latlng) {
+          var marker = {}
+          if((feature.properties.dpcapacity)>25)
+          {
+            marker = {
+              radius: 6,
+              fillColor: "yellow",
+              color: "black",
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 1
+            };
+      
+          }
+          else 
+          {
+            marker = {
+              radius: 5,
+              fillColor: "black",
+              color: "black",
+              weight: 1,
+              opacity: 0.5,
+              fillOpacity: 0.5
+            };
+      
+          }
+        return L.circleMarker(latlng, marker);
+      },
+        onEachFeature: function (feature, layer) {
+          const data = feature.properties;
+          layer.bindTooltip(`<b>Station Name:</b> ${data.name} <br />
+            <b>Station Capacity:</b> ${data.dpcapacity}`, {sticky: true});
+        }
+      });  
+    
+      map.addLayer(geoLayer);
+    
+
+
 }
 vizbar()
 
@@ -97,8 +167,8 @@ function linechart(weekData)
     }
     weekValues.push(weekValues.shift());
     tempName.push(tempName.shift());
-    console.log(weekValues)
-    console.log(weekmin)
+    //console.log(weekValues)
+    //console.log(weekmin)
     let linesvg = d3.select("#linechart")
     d3.selectAll("#linechart > *").remove(); 
     let linewidth = 700;
@@ -142,3 +212,29 @@ function linechart(weekData)
         .attr("fill","black");
 
 }
+
+function getGeoDataPoints(data) {
+    const geoData = {
+      type: 'FeatureCollection',
+      crs: {
+        type: 'name',
+        properties: {
+          name: 'urn:ogc:def:crs:OGC:1.3:CRS84'
+        }
+      },
+      features: []
+    }
+    const features = data.filter(point => (point.longitude && point.latitude)).map(dataPoint => {
+      const feature = {
+        type: 'Feature',
+        properties: dataPoint,
+        geometry: {
+          type: 'Point',
+          coordinates: [dataPoint.longitude, dataPoint.latitude]
+        }
+      };
+      return feature;
+    });
+    geoData.features = features;
+    return geoData;
+  }
