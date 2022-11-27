@@ -54,9 +54,29 @@ vizbar = async () =>{
         let temp = {"Month": monthName[i], "Value":sum}
         monthValues.push(temp)
     }
-    let barwidth = 700;
+
+    let linesvgtext = d3.select("#linechart")
+
+    linesvgtext.append("text")
+        .attr("class", "title")
+        .attr("text-anchor", "end")
+        .attr("x", 550)
+        .attr("y", 280)
+        .attr("font-family", "sans-serif")
+        .attr("font-size","20")
+        .text("Click on month to get weekday distribution");
+
+    linesvgtext.append("line")
+                .attr("x1", 5)
+                .attr("y1", 0)
+                .attr("x2", 5)
+                .attr("y2", 600)
+                .attr("stroke","black")
+                .attr("stroke-width","2");
+
+    let barwidth = 709;
     let barheight = 550
-    const margin = { left: 70, top: 10, right: 30, bottom: 50 }
+    const margin = { left: 80, top: 10, right: 20, bottom: 50 }
     let xScale = d3.scaleBand()
                    .padding(0.1)
                    .range([margin.left, barwidth - margin.right])
@@ -70,6 +90,33 @@ vizbar = async () =>{
 
     barsvg.append('g').call(d3.axisLeft(yScale)).attr('transform', `translate(${margin.left},0)`)
 
+    barsvg.append("text")
+       .attr("class", "x label")
+       .attr("text-anchor", "end")
+       .attr("x", barwidth-275)
+       .attr("y", barheight-10)
+       .attr("font-family", "sans-serif")
+       .text("Months");
+
+    barsvg.append("text")
+          .attr("class", "y label")
+          .attr("text-anchor", "end")
+          .attr("x", -220)
+          .attr("y", 25)
+          .attr("transform", "rotate(-90)")
+          .attr("font-family", "sans-serif")
+          .text("Count");
+
+    barsvg.append("text")
+          .attr("class", "title")
+          .attr("text-anchor", "end")
+          .attr("x", barwidth-160)
+          .attr("y", barheight+30)
+          .attr("font-family", "sans-serif")
+          .attr("font-size","20")
+          .text("Trip distribution for each month");
+
+
     barsvg.selectAll('rect')
           .data(monthValues)
           .enter()
@@ -82,7 +129,7 @@ vizbar = async () =>{
           .on("click",function(d){
             barsvg.selectAll("rect").attr("fill","blue")
             d3.select(this).attr("fill","black")
-            linechart(monthData[monthName.indexOf(d.Month)])
+            linechart(monthData[monthName.indexOf(d.Month)],monthName.indexOf(d.Month))
           });
 
 
@@ -210,9 +257,11 @@ vizbar = async () =>{
 }
 vizbar()
 
-function linechart(weekData)
+function linechart(weekData,month)
 {
+    let monthName2 =["January","February","March","April","May","June","July","August","September","October","November","December"]
     let dayCount = [0,0,0,0,0,0,0]
+    let mon
     let dayName = ["Sun","Mon","Tue","Wed","Thur","Fri","Sat"]
     let tempName = dayName
     let weekValues = []
@@ -238,7 +287,7 @@ function linechart(weekData)
     d3.selectAll("#linechart > *").remove(); 
     let linewidth = 700;
     let lineheight = 550
-    const margin = { left: 70, top: 10, right: 30, bottom: 50 }
+    const margin = { left: 90, top: 10, right: 10, bottom: 50 }
 
     let xScaleLine = d3.scaleBand()
     .padding(1)
@@ -252,6 +301,32 @@ function linechart(weekData)
     .domain([weekmin-4000,weekmax+1000])
 
     linesvg.append('g').call(d3.axisLeft(yScaleLine)).attr('transform', `translate(${margin.left},0)`)
+
+    linesvg.append("text")
+          .attr("class", "x label")
+          .attr("text-anchor", "end")
+          .attr("x", linewidth-275)
+          .attr("y", lineheight-10)
+          .attr("font-family", "sans-serif")
+          .text("Week Days");
+
+    linesvg.append("text")
+        .attr("class", "y label")
+        .attr("text-anchor", "end")
+        .attr("x", -220)
+        .attr("y", 30)
+        .attr("transform", "rotate(-90)")
+        .attr("font-family", "sans-serif")
+        .text("Count");
+
+    linesvg.append("text")
+          .attr("class", "title")
+          .attr("text-anchor", "end")
+          .attr("x", linewidth-130)
+          .attr("y", lineheight+30)
+          .attr("font-family", "sans-serif")
+          .attr("font-size","20")
+          .text("Trip distribution for each day for "+monthName2[month]);    
 
     const line = d3.line()
     .x(d => xScaleLine(d.Day))
@@ -275,6 +350,14 @@ function linechart(weekData)
         .attr("cy", function(dd) {return yScaleLine(dd.Value)})
         .attr("r", 5)
         .attr("fill","black");
+
+        linesvg.append("line")
+                .attr("x1", 5)
+                .attr("y1", 0)
+                .attr("x2", 5)
+                .attr("y2", 600)
+                .attr("stroke","black")
+                .attr("stroke-width","2");
 
 }
 
