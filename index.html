@@ -3,8 +3,15 @@
     <title>Data Visualisation Final Project</title>
     <link href='src/style.css' rel='stylesheet'>     
 </head>  
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+crossorigin=""></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="src/js/Viz1.js"></script>
 <body>
     <div class="banner">
         <div class="banner_content">
@@ -12,5 +19,21 @@
         </div>
     </div> 
     <div class="container" id="visual1">
+        <div class="viz1title">Trips distribution over months and week days</div>
+        <div style="width: 50%; float:left;">
+            <svg id = 'barchart' style=" width: 100%; height: 600; margin-top:20 "></svg>
+        </div>
+        <div style="width: 50%; float:right">
+            <svg id = 'linechart' style=" width: 100%; height: 600; margin-top:20 "></svg>
+        </div>
+        <input type="button" style="align-self: center;" id="arrow" onClick="document.getElementById('map1').scrollIntoView();" />
     </div>
+    <div class="map1title" style="height: 50; width:48%; float:left">
+        Divvy station distribution by capacity
+    </div>
+    <div class="map2title" style="height: 50; width:48%; float:right">
+        Divvy station distribution by rides takes
+    </div>
+    <div class="container" id="map1" style="width:48%; float:left"></div>
+    <div class="container" id="map2" style="width:48%; float:right"></div>
 </body>

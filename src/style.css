@@ -1,22 +1,87 @@
 /*For banner */
 .banner {
-    background: #2C3333;
+    background: #010016;
+    border-radius: 10px;
     height: 70px;
-  }
+}
   
-  .banner_content {
-      color: #E7F6F2;
-      padding: 10px;
-      max-width: 1000px;
-      margin: 0 auto;
-      text-align: center;
-      font-size: 30px;
-      flex-grow: 1;
-      font-family: 'Quicksand', sans-serif ;
-  }
-  #visual1 {
+.banner_content {
+    color: #e4f7fa;
+    padding: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+    flex-grow: 1;
+    font-family: 'Quicksand', sans-serif ;
+}
+
+  /* For First Visualization */
+#visual1 {
+    padding: 10px 10px;
+    height: 730px;
+    align-items: center ;
+    margin-top: 10px;
+    opacity: 1;
+    background-color: rgb(238, 240, 234);
+}
+
+.viz1title {
+    color: #e4f7fa;
+    background: #232323e8;
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 30px;
+    flex-grow: 1;
+    font-family: 'Quicksand', sans-serif ;
+}
+
+  /* For Second Visualization */
+
+
+.map1title {
+    padding: 17px 10px;
+    margin-top: 10px;
+    background-color:  rgb(238, 240, 234);
+    color: #e4f7fa;
+    background: #232323e8;
+    border-radius: 10px;
+    max-width: 1000px;
+    text-align: center;
+    font-size: 30px;
+    flex-grow: 1;
+    font-family: 'Quicksand', sans-serif ;
+}
+
+.map2title {
+    padding: 17px 10px;
+    margin-top: 10px;
+    background-color:  rgb(238, 240, 234);
+    color: #e4f7fa;
+    background: #232323e8;
+    border-radius: 10px;
+    max-width: 1000px;
+    text-align: center;
+    font-size: 30px;
+    flex-grow: 1;
+    font-family: 'Quicksand', sans-serif ;
+}
+
+#map1 {
     padding: 10px 10px;
     height: 670px;
     align-items: center ;
-    background-color: rgb(213, 229, 231);
-  }
+    background-color:  rgb(238, 240, 234);
+}
+
+#map2 {
+    padding: 10px 10px;
+    height: 670px;
+    align-items: center ;
+    background-color:  rgb(238, 240, 234);
+}
+
+ 
