@@ -64,7 +64,7 @@ vizbar = async () =>{
         .attr("y", 280)
         .attr("font-family", "sans-serif")
         .attr("font-size","20")
-        .text("Click on month to get weekday distribution");
+        .text("Click on month to get week-day distribution");
 
     linesvgtext.append("line")
                 .attr("x1", 5)
@@ -105,7 +105,7 @@ vizbar = async () =>{
           .attr("y", 20)
           .attr("transform", "rotate(-90)")
           .attr("font-family", "sans-serif")
-          .text("Count");
+          .text("Count of trips");
 
     barsvg.append("text")
           .attr("class", "title")
@@ -133,6 +133,12 @@ vizbar = async () =>{
           });
 
 
+    createmap(stationData);
+
+}
+vizbar()
+
+function createmap(stationData){
     //Map-1
     let map = L.map('map1').setView([41.85, -87.68], 12); // Chicago origins
     L.tileLayer( // 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png')
@@ -275,9 +281,7 @@ vizbar = async () =>{
   });  
 
   map2.addLayer(geoLayer2);
-
 }
-vizbar()
 
 function linechart(weekData,month)
 {
@@ -330,7 +334,7 @@ function linechart(weekData,month)
           .attr("x", linewidth-275)
           .attr("y", lineheight-10)
           .attr("font-family", "sans-serif")
-          .text("Week Days");
+          .text("Week Day");
 
     linesvg.append("text")
         .attr("class", "y label")
@@ -339,7 +343,7 @@ function linechart(weekData,month)
         .attr("y", 30)
         .attr("transform", "rotate(-90)")
         .attr("font-family", "sans-serif")
-        .text("Count");
+        .text("Count of trips");
 
     linesvg.append("text")
           .attr("class", "title")
