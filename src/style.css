@@ -39,32 +39,62 @@
     font-family: 'Quicksand', sans-serif ;
 }
 
+.arrows1 {
+	width: 58px;
+	height: 62px;
+    display: block; margin: auto;
+	bottom: 10px;
+}
+
+.arrows1 path {
+	stroke: #0197ae;
+	fill: transparent;
+	stroke-width: 1px;	
+
+}
+
+
+#separator {
+    padding: 0px 10px;
+    height: 62px;
+    align-items: center ;
+    opacity: 1;
+    background-color: rgb(238, 240, 234);
+}
+
+
   /* For Second Visualization */
 
+  #visual2 {
+    padding: 10px 10px;
+    height: 760px;
+    align-items: center ;
+    margin-top: 10px;
+    opacity: 1;
+    background-color: rgb(238, 240, 234);
+}
 
 .map1title {
-    padding: 17px 10px;
-    margin-top: 10px;
-    background-color:  rgb(238, 240, 234);
     color: #e4f7fa;
     background: #232323e8;
-    border-radius: 10px;
-    max-width: 1000px;
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 800px;
     text-align: center;
+    border-radius: 10px;
     font-size: 30px;
     flex-grow: 1;
     font-family: 'Quicksand', sans-serif ;
 }
 
 .map2title {
-    padding: 17px 10px;
-    margin-top: 10px;
-    background-color:  rgb(238, 240, 234);
     color: #e4f7fa;
     background: #232323e8;
-    border-radius: 10px;
-    max-width: 1000px;
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 800px;
     text-align: center;
+    border-radius: 10px;
     font-size: 30px;
     flex-grow: 1;
     font-family: 'Quicksand', sans-serif ;
@@ -84,4 +114,16 @@
     background-color:  rgb(238, 240, 234);
 }
 
- 
+.arrows2 {
+	width: 58px;
+	height: 62px;
+    display: block; margin: auto;
+	bottom: 10px;
+}
+
+.arrows2 path {
+	stroke: #0197ae;
+	fill: transparent;
+	stroke-width: 1px;	
+
+}
