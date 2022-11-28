@@ -102,7 +102,7 @@ vizbar = async () =>{
           .attr("class", "y label")
           .attr("text-anchor", "end")
           .attr("x", -220)
-          .attr("y", 25)
+          .attr("y", 20)
           .attr("transform", "rotate(-90)")
           .attr("font-family", "sans-serif")
           .text("Count");
@@ -125,10 +125,10 @@ vizbar = async () =>{
           .attr('y', d => yScale(d.Value))
           .attr('height', d => yScale(0) - yScale(d.Value))
           .attr('width', xScale.bandwidth())
-          .attr('fill', "blue")
+          .attr('fill', "#029C8D")
           .on("click",function(d){
-            barsvg.selectAll("rect").attr("fill","blue")
-            d3.select(this).attr("fill","black")
+            barsvg.selectAll("rect").attr("fill","#029C8D")
+            d3.select(this).attr("fill","#232323e8")
             linechart(monthData[monthName.indexOf(d.Month)],monthName.indexOf(d.Month))
           });
 
@@ -335,7 +335,7 @@ function linechart(weekData,month)
     linesvg.append("path")
       .datum(weekValues)
       .attr("fill", "none")
-      .attr("stroke", "teal")
+      .attr("stroke", "#029C8D")
       .attr("stroke-width", 2)
       .attr("d", d3.line()
         .x(function(d) { return xScaleLine(d.Day) })
@@ -349,7 +349,7 @@ function linechart(weekData,month)
         .attr("cx", function(dd) {return xScaleLine(dd.Day)})
         .attr("cy", function(dd) {return yScaleLine(dd.Value)})
         .attr("r", 5)
-        .attr("fill","black");
+        .attr("fill","#232323e8");
 
         linesvg.append("line")
                 .attr("x1", 5)
