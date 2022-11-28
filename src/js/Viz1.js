@@ -125,9 +125,9 @@ vizbar = async () =>{
           .attr('y', d => yScale(d.Value))
           .attr('height', d => yScale(0) - yScale(d.Value))
           .attr('width', xScale.bandwidth())
-          .attr('fill', "#029C8D")
+          .attr('fill', "#0197ae")
           .on("click",function(d){
-            barsvg.selectAll("rect").attr("fill","#029C8D")
+            barsvg.selectAll("rect").attr("fill","#0197ae")
             d3.select(this).attr("fill","#232323e8")
             linechart(monthData[monthName.indexOf(d.Month)],monthName.indexOf(d.Month))
           });
@@ -155,7 +155,7 @@ vizbar = async () =>{
           {
             marker = {
               radius: 6,
-              fillColor: "yellow",
+              fillColor: "#0bb3cd",
               color: "black",
               weight: 1,
               opacity: 1,
@@ -203,7 +203,7 @@ vizbar = async () =>{
         {
            marker = {
               radius: 11,
-              fillColor: "#06382B",
+              fillColor: "#0E5A65",
               color: "black",
               weight: 1,
               opacity: 0.8,
@@ -214,7 +214,7 @@ vizbar = async () =>{
         {
           marker = {
               radius: 7,
-              fillColor: "#0B6F56",
+              fillColor: "#147E8E",
               color: "black",
               weight: 1,
               opacity: 1,
@@ -225,30 +225,52 @@ vizbar = async () =>{
         {
              marker = {
               radius: 5,
-              fillColor: "#14CC9E",
+              fillColor: "#00D9FA",
               color: "black",
               weight: 1,
               opacity: 1,
               fillOpacity: 0.8
             };
         }
-   if((feature.properties.trip_count)<10000)
+        if((feature.properties.trip_count)<10000 && (feature.properties.trip_count)>5000)
         {
-           marker = {
+             marker = {
               radius: 5,
-              fillColor: "#D1F2EB",
+              fillColor: "#63EAFF",
               color: "black",
               weight: 1,
               opacity: 1,
               fillOpacity: 0.8
+            };
+        }
+        if((feature.properties.trip_count)<5000)
+        {
+           marker = {
+              radius: 5,
+              fillColor: "#EAFCFF",
+              color: "black",
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.8
+            };
+        }
+        if((feature.properties.trip_count)==0)
+        {
+           marker = {
+              radius: 0,
+              opacity:0
             };
         }
     return L.circleMarker(latlng, marker);
   },
     onEachFeature: function (feature, layer) {
       const data = feature.properties;
-      layer.bindTooltip(`<b>Station Name:</b> ${data.name} <br />
+      if((feature.properties.trip_count)!=0)
+      {
+        layer.bindTooltip(`<b>Station Name:</b> ${data.name} <br />
         <b>Trips Taken:</b> ${data.trip_count}`, {sticky: true});
+      }
+
     }
   });  
 
@@ -335,7 +357,7 @@ function linechart(weekData,month)
     linesvg.append("path")
       .datum(weekValues)
       .attr("fill", "none")
-      .attr("stroke", "#029C8D")
+      .attr("stroke", "#00a4bd")
       .attr("stroke-width", 2)
       .attr("d", d3.line()
         .x(function(d) { return xScaleLine(d.Day) })
