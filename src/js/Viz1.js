@@ -19,6 +19,8 @@ vizbar = async () =>{
         stationData[i]['trip_count']=0;
         stationData[i].dpcapacity = parseInt(stationData[i].dpcapacity)
     }
+
+    let stationContent = {}
     for(let i=0;i<data.length;i++)
     {
         let date = data[i].start_time;
@@ -32,8 +34,19 @@ vizbar = async () =>{
                 stationData[j]['trip_count']= stationData[j]['trip_count'] + 1
             }
         }
+        if(stationContent.hasOwnProperty(data[i].from_station_name))
+        {
+            stationContent[data[i].from_station_name].trip_data.push(data[i].start_time)
+            stationContent[data[i].from_station_name].trip_time.push(data[i].tripduration)
+        }
+        if(!(stationContent.hasOwnProperty(data[i].from_station_name)))
+        {
+            stationContent[data[i].from_station_name] = {trip_data:[], trip_time:[]}
+            stationContent[data[i].from_station_name].trip_data.push(data[i].start_time)
+            stationContent[data[i].from_station_name].trip_time.push(data[i].tripduration)
+        }
+
     }
-    console.log(stationData)
 
     let barsvg = d3.select("#barchart")
     let monthName =["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]
@@ -134,6 +147,7 @@ vizbar = async () =>{
 
 
     createmap(stationData);
+    createmap2(stationData,stationContent);
 
 }
 vizbar()
@@ -152,7 +166,6 @@ function createmap(stationData){
      map.scrollWheelZoom.disable();
 
     let geoData = getGeoDataPoints(stationData)
-    console.log(geoData)
 
     let geoLayer = L.geoJson(geoData, {
         pointToLayer: function (feature, latlng) {
@@ -412,3 +425,152 @@ function getGeoDataPoints(data) {
     geoData.features = features;
     return geoData;
   }
+
+  function createmap2(stationData,stationContent){
+
+    let map3 = L.map('map3').setView([41.85, -87.68], 12); // Chicago origins
+    L.tileLayer( // 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png')
+      'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors, &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>',
+      detectRetina: false,
+      noWrap: false,
+      subdomains: 'abc'
+    }).addTo(map3);
+
+    let geoData = getGeoDataPoints(stationData)
+
+    let geoLayer = L.geoJson(geoData, {
+        pointToLayer: function (feature, latlng) {
+          var marker = {}
+          if((feature.properties.trip_count)==0)
+          {
+             marker = {
+                radius: 0,
+                opacity:0
+              };
+          }
+          else
+          {
+            marker = {
+                radius: 5,
+                fillColor: "#0bb3cd",
+                color: "black",
+                weight: 1,
+                opacity: 0.5,
+                fillOpacity: 0.5
+              };
+          }
+            
+        return L.circleMarker(latlng, marker);
+      },
+        onEachFeature: function (feature, layer) {
+          const data = feature.properties;
+          layer.bindTooltip(`<b>Station Name:</b> ${data.name} <br />
+            <b>Trips Taken:</b> ${data.trip_count}`, {sticky: true});
+        }
+      });  
+    
+      map3.addLayer(geoLayer);
+
+      geoLayer.on("click", function (event) {
+        d3.selectAll("#viz3line > *").remove(); 
+        var clickedMarker = event.layer;
+        console.log(clickedMarker.feature.properties.name)
+        hourbar(stationContent[clickedMarker.feature.properties.name])
+    });
+
+  }
+
+function hourbar(stationContent)
+{
+    let hourval = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+    let hourcount =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    for(let i=0;i<stationContent.trip_data.length;i++)
+    {
+        let date = stationContent.trip_data[i];
+        let hour = new Date(date).getHours()
+        hourcount[hour] = hourcount[hour]+1
+    }
+    let values=[]
+    let max = -1
+    for(let i=0;i<24;i++)
+    {
+        if(hourcount[i]>max)
+        {
+            max=hourcount[i]
+        }
+        let temp = {"Hour": i, "Value":hourcount[i]}
+        values.push(temp)
+    }
+
+    let hoursvg = d3.select("#hourdata")
+    d3.selectAll("#hourdata > *").remove();
+
+    let hour_tooltip = d3.select("body")
+                        .append("div")
+                        .style("position", "absolute")
+                        .style("z-index", "10")
+                        .style("visibility", "hidden")
+                        .style("background", "grey")
+                        .style("opacity",0.9)
+                        .style("border", "solid")
+                        .style("border-width", "2px")
+                        .style("border-radius", "10px")
+                        .style("padding", "15px")
+                        .text("a simple tooltip");
+
+    let hourwidth = 680;
+    let hourheight = 350
+    const margin = { left: 60, top: 20, right: 0, bottom: 32 }
+    let xScale = d3.scaleBand()
+                   .padding(0.1)
+                   .range([margin.left, hourwidth - margin.right])
+                   .domain(hourval)
+
+    
+    hoursvg.append('g').call(d3.axisBottom(xScale)).attr('transform', `translate(0,${hourheight - margin.bottom})`)
+
+    let yScale = d3.scaleLinear()
+                   .range([hourheight - margin.bottom, margin.top])
+                   .domain([0,max+(Math.round(10/100 * max))])
+
+    hoursvg.append('g').call(d3.axisLeft(yScale)).attr('transform', `translate(${margin.left},0)`)
+
+    hoursvg.append("text")
+       .attr("class", "x label")
+       .attr("text-anchor", "end")
+       .attr("x", hourwidth-250)
+       .attr("y", hourheight)
+       .attr("font-family", "sans-serif")
+       .text("Hour of the day");
+
+    hoursvg.append("text")
+          .attr("class", "y label")
+          .attr("text-anchor", "end")
+          .attr("x", -125)
+          .attr("y", 18)
+          .attr("transform", "rotate(-90)")
+          .attr("font-family", "sans-serif")
+          .text("Count of trips");
+
+    hoursvg.selectAll('rect')
+          .data(values)
+          .enter()
+          .append('rect')
+          .attr('x', d => xScale(d.Hour))
+          .attr('y', d => yScale(d.Value))
+          .attr('height', d => yScale(0) - yScale(d.Value))
+          .attr('width', xScale.bandwidth())
+          .attr('fill', "#0197ae")
+          .on('mouseover',function(d){
+            hour_tooltip.html("<b>Count: </b>"+d.Value);
+            return hour_tooltip.style("visibility", "visible");
+          })
+         .on('mousemove',function(dg){
+            return hour_tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+          })
+         .on('mouseout', function(){
+            return hour_tooltip.style("visibility", "hidden");
+          });
+}
+  
