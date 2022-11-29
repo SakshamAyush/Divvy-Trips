@@ -428,6 +428,28 @@ function getGeoDataPoints(data) {
 
   function createmap2(stationData,stationContent){
 
+    let hoursvgtext = d3.select("#hourdata")
+
+    hoursvgtext.append("text")
+        .attr("class", "title")
+        .attr("text-anchor", "end")
+        .attr("x", 510)
+        .attr("y", 210)
+        .attr("font-family", "sans-serif")
+        .attr("font-size","17")
+        .text("Click on station to get hour distribution");
+
+    let tripsvgtext = d3.select("#tripdur")
+
+    tripsvgtext.append("text")
+            .attr("class", "title")
+            .attr("text-anchor", "end")
+            .attr("x", 530)
+            .attr("y", 210)
+            .attr("font-family", "sans-serif")
+            .attr("font-size","17")
+            .text("Click on station to get trip duration distribution");
+
     let map3 = L.map('map3').setView([41.85, -87.68], 12); // Chicago origins
     L.tileLayer( // 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png')
       'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
@@ -473,15 +495,18 @@ function getGeoDataPoints(data) {
       map3.addLayer(geoLayer);
 
       geoLayer.on("click", function (event) {
-        d3.selectAll("#viz3line > *").remove(); 
         var clickedMarker = event.layer;
-        console.log(clickedMarker.feature.properties.name)
-        hourbar(stationContent[clickedMarker.feature.properties.name])
+        d3.selectAll("#hourdata > *").remove();
+        d3.selectAll("#tripdur > *").remove();
+        hourbar(stationContent[clickedMarker.feature.properties.name],clickedMarker.feature.properties.name)
+        tripbar(stationContent[clickedMarker.feature.properties.name],clickedMarker.feature.properties.name)
     });
+
+
 
   }
 
-function hourbar(stationContent)
+function hourbar(stationContent,stationName)
 {
     let hourval = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
     let hourcount =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -538,11 +563,11 @@ function hourbar(stationContent)
 
     hoursvg.append("text")
        .attr("class", "x label")
-       .attr("text-anchor", "end")
-       .attr("x", hourwidth-250)
+       .attr("text-anchor", "middle")
+       .attr("x", hourwidth-280)
        .attr("y", hourheight)
        .attr("font-family", "sans-serif")
-       .text("Hour of the day");
+       .text("Hour of the day (for station: "+stationName+" )");
 
     hoursvg.append("text")
           .attr("class", "y label")
@@ -558,6 +583,126 @@ function hourbar(stationContent)
           .enter()
           .append('rect')
           .attr('x', d => xScale(d.Hour))
+          .attr('y', d => yScale(d.Value))
+          .attr('height', d => yScale(0) - yScale(d.Value))
+          .attr('width', xScale.bandwidth())
+          .attr('fill', "#0197ae")
+          .on('mouseover',function(d){
+            hour_tooltip.html("<b>Count: </b>"+d.Value);
+            return hour_tooltip.style("visibility", "visible");
+          })
+         .on('mousemove',function(dg){
+            return hour_tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+          })
+         .on('mouseout', function(){
+            return hour_tooltip.style("visibility", "hidden");
+          });
+}
+
+function tripbar(stationContent,stationName)
+{
+    let brackets = ["<5 Minutes","5-10 Minutes","10-15 Minutes","15-30 Minutes","30-60 Minutes","60-120 Minutes",">120 Minutes"]
+    let bracketsval = [0,0,0,0,0,0,0]
+
+    for(let i=0;i<stationContent.trip_time.length;i++)
+    {
+        stationContent.trip_time[i] = Math.round(stationContent.trip_time[i]/60)
+        if(stationContent.trip_time[i]<=5)
+        {
+            bracketsval[0] = bracketsval[0]+1
+        }
+        if(stationContent.trip_time[i]<=10 && stationContent.trip_time[i]>5)
+        {
+            bracketsval[1] = bracketsval[1]+1
+        }
+        if(stationContent.trip_time[i]<=15 && stationContent.trip_time[i]>10)
+        {
+            bracketsval[2] = bracketsval[2]+1
+        }
+        if(stationContent.trip_time[i]<=30 && stationContent.trip_time[i]>15)
+        {
+            bracketsval[3] = bracketsval[3]+1
+        }
+        if(stationContent.trip_time[i]<=60 && stationContent.trip_time[i]>30)
+        {
+            bracketsval[4] = bracketsval[4]+1
+        }
+        if(stationContent.trip_time[i]<=120 && stationContent.trip_time[i]>60)
+        {
+            bracketsval[5] = bracketsval[5]+1
+        }
+        if(stationContent.trip_time[i]>120)
+        {
+            bracketsval[6] = bracketsval[6]+1
+        }
+    }
+    let values=[]
+    let max = -1
+    for(let i=0;i<7;i++)
+    {
+        if(bracketsval[i]>max)
+        {
+            max=bracketsval[i]
+        }
+        let temp = {"Bracket": brackets[i], "Value":bracketsval[i]}
+        values.push(temp)
+    }
+
+    let tripsvg = d3.select("#tripdur")
+    d3.selectAll("#tripdur > *").remove();
+
+    let hour_tooltip = d3.select("body")
+                        .append("div")
+                        .style("position", "absolute")
+                        .style("z-index", "10")
+                        .style("visibility", "hidden")
+                        .style("background", "grey")
+                        .style("opacity",0.9)
+                        .style("border", "solid")
+                        .style("border-width", "2px")
+                        .style("border-radius", "10px")
+                        .style("padding", "15px")
+                        .text("a simple tooltip");
+
+    let tripwidth = 680;
+    let tripheight = 350
+    const margin = { left: 60, top: 20, right: 0, bottom: 35 }
+    let xScale = d3.scaleBand()
+                   .padding(0.1)
+                   .range([margin.left, tripwidth - margin.right])
+                   .domain(brackets)
+
+    
+    tripsvg.append('g').call(d3.axisBottom(xScale)).attr('transform', `translate(0,${tripheight - margin.bottom})`)
+
+    let yScale = d3.scaleLinear()
+                   .range([tripheight - margin.bottom, margin.top])
+                   .domain([0,max+(Math.round(10/100 * max))])
+
+    tripsvg.append('g').call(d3.axisLeft(yScale)).attr('transform', `translate(${margin.left},0)`)
+
+    tripsvg.append("text")
+       .attr("class", "x label")
+       .attr("text-anchor", "middle")
+       .attr("x", tripwidth-280)
+       .attr("y", tripheight)
+       .attr("font-family", "sans-serif")
+       .text("Trip durations (for station: "+stationName+" )");
+
+    tripsvg.append("text")
+          .attr("class", "y label")
+          .attr("text-anchor", "end")
+          .attr("x", -125)
+          .attr("y", 18)
+          .attr("transform", "rotate(-90)")
+          .attr("font-family", "sans-serif")
+          .text("Count of trips");
+
+    tripsvg.selectAll('rect')
+          .data(values)
+          .enter()
+          .append('rect')
+          .attr('x', d => xScale(d.Bracket))
           .attr('y', d => yScale(d.Value))
           .attr('height', d => yScale(0) - yScale(d.Value))
           .attr('width', xScale.bandwidth())
