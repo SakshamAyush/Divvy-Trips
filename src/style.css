@@ -136,3 +136,73 @@
     opacity: 1;
     background-color: rgb(238, 240, 234);
 }
+
+#visual4 {
+    padding: 10px 10px;
+    height: 820px;
+    align-items: center ;
+    margin-top: 10px;
+    opacity: 1;
+    background-color: rgb(238, 240, 234);
+}
+
+.arrows3 {
+	width: 58px;
+	height: 60px;
+    display: block; margin: auto;
+	bottom: 10px;
+}
+
+.arrows3 path {
+	stroke: #0197ae;
+	fill: transparent;
+	stroke-width: 1px;	
+
+}
+
+.map3title {
+    color: #e4f7fa;
+    background: #232323e8;
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 30px;
+    flex-grow: 1;
+    font-family: 'Quicksand', sans-serif ;
+}
+
+
+#map3 {
+    padding: 10px 10px;
+    height: 740px;
+    align-items: center ;
+    background-color:  rgb(238, 240, 234);
+}
+
+.viz4title1 {
+    color: #e4f7fa;
+    background: #232323e8;
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 30px;
+    flex-grow: 1;
+    font-family: 'Quicksand', sans-serif ;
+}
+
+.viz4title2 {
+    color: #e4f7fa;
+    background: #232323e8;
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 30px;
+    flex-grow: 1;
+    font-family: 'Quicksand', sans-serif ;
+}
