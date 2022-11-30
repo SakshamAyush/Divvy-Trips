@@ -13,7 +13,7 @@ function brushableScatterplot(){
 
   const margin = { left: 70, top: 10, right: 80, bottom: 50 }*/
 
-  let margin = ({top: 10, right: 70, bottom: 50, left: 75});
+  let margin = ({top: 10, right: 50, bottom: 50, left: 55});
   let width = 650;
   let height = 550;
 
@@ -113,11 +113,11 @@ function brushableScatterplot(){
   svg.append("text")
       .attr("class", "y label")
       .attr("text-anchor", "end")
-      .attr("x", 0-200)
-      .attr("y", 0)
+      .attr("x", 0-180)
+      .attr("y", 10)
       .attr("dy", ".75em")
       .attr("transform", "rotate(-90)")
-      .text("Trip Duration");
+      .text("Trip Duration in minutes");
 
 
   const brush = d3.brush()
@@ -160,9 +160,9 @@ function barChart(){
   var height = 700
   var width = 700*/
 
-  const margin = {top: 10, right: 20, bottom: 50, left: 50};
+  const margin = {top: 10, right: 20, bottom: 50, left: 100};
   
-  const width = 300;
+  const width = 400;
   const height = 200;
 
   const initialValue = divvy;
@@ -189,7 +189,7 @@ function barChart(){
       .attr("transform", `translate(0, ${height})`);
   
   xAxisGroup.append("text")
-      .attr("x", width / 3)
+      .attr("x", width / 2)
       .attr("y", 40)
       .attr("fill", "black")
       .attr("text-anchor", "middle")
