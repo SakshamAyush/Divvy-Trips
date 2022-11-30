@@ -1,6 +1,6 @@
 const parseData = async () => {
 
-    divvyData = await d3.csv("Data/Divvy_2019_Viz2.csv");
+    divvyData = await d3.csv("../Divvy_2019_Viz2.csv");
     divvy = divvyData.slice(0,10000)
     multiLink();
   
