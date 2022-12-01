@@ -535,19 +535,6 @@ function hourbar(stationContent,stationName)
     let hoursvg = d3.select("#hourdata")
     d3.selectAll("#hourdata > *").remove();
 
-    let hour_tooltip = d3.select("body")
-                        .append("div")
-                        .style("position", "absolute")
-                        .style("z-index", "10")
-                        .style("visibility", "hidden")
-                        .style("background", "grey")
-                        .style("opacity",0.9)
-                        .style("border", "solid")
-                        .style("border-width", "2px")
-                        .style("border-radius", "10px")
-                        .style("padding", "15px")
-                        .text("a simple tooltip");
-
     let hourwidth = 680;
     let hourheight = 350
     const margin = { left: 60, top: 20, right: 0, bottom: 32 }
@@ -590,17 +577,7 @@ function hourbar(stationContent,stationName)
           .attr('y', d => yScale(d.Value))
           .attr('height', d => yScale(0) - yScale(d.Value))
           .attr('width', xScale.bandwidth())
-          .attr('fill', "#0197ae")
-          .on('mouseover',function(d){
-            hour_tooltip.html("<b>Count: </b>"+d.Value);
-            return hour_tooltip.style("visibility", "visible");
-          })
-         .on('mousemove',function(dg){
-            return hour_tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
-          })
-         .on('mouseout', function(){
-            return hour_tooltip.style("visibility", "hidden");
-          });
+          .attr('fill', "#0197ae");
 }
 
 function tripbar(stationContent,stationName)
@@ -655,19 +632,6 @@ function tripbar(stationContent,stationName)
     let tripsvg = d3.select("#tripdur")
     d3.selectAll("#tripdur > *").remove();
 
-    let hour_tooltip = d3.select("body")
-                        .append("div")
-                        .style("position", "absolute")
-                        .style("z-index", "10")
-                        .style("visibility", "hidden")
-                        .style("background", "grey")
-                        .style("opacity",0.9)
-                        .style("border", "solid")
-                        .style("border-width", "2px")
-                        .style("border-radius", "10px")
-                        .style("padding", "15px")
-                        .text("a simple tooltip");
-
     let tripwidth = 680;
     let tripheight = 350
     const margin = { left: 60, top: 20, right: 0, bottom: 35 }
@@ -710,16 +674,6 @@ function tripbar(stationContent,stationName)
           .attr('y', d => yScale(d.Value))
           .attr('height', d => yScale(0) - yScale(d.Value))
           .attr('width', xScale.bandwidth())
-          .attr('fill', "#0197ae")
-          .on('mouseover',function(d){
-            hour_tooltip.html("<b>Count: </b>"+d.Value);
-            return hour_tooltip.style("visibility", "visible");
-          })
-         .on('mousemove',function(dg){
-            return hour_tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
-          })
-         .on('mouseout', function(){
-            return hour_tooltip.style("visibility", "hidden");
-          });
+          .attr('fill', "#0197ae");
 }
   

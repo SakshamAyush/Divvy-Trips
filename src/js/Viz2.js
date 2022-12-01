@@ -1,16 +1,7 @@
 parseData = async () => {
 
-    let divvy = await d3.csv("Data/Divvy_2019_Viz2_Sample.csv");
-    //multiLink();
-    const scatter = brushableScatterplot();
-    const bar = barChart();
-    //console.log(scatter)
-    
-    d3.select(scatter).on('input', () => {
-      bar.update(scatter.value);
-    });
-    bar.update(scatter.value);
-  
+    divvy = await d3.csv("Data/Divvy_2019_Viz2_Sample.csv");
+    multiLink();  
 };
 
 function brushableScatterplot(){
@@ -185,5 +176,16 @@ function barChart(){
   return Object.assign(svg.node(), { update });;
 
 };
+
+multiLink = async () => {
+  const scatter = brushableScatterplot();
+  const bar = barChart();
+  //console.log(scatter)
+  
+  d3.select(scatter).on('input', () => {
+    bar.update(scatter.value);
+  });
+  bar.update(scatter.value);
+}
 
 window.onload = parseData();
