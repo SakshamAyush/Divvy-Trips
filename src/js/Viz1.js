@@ -139,10 +139,10 @@ vizbar = async () =>{
           .attr('height', d => yScale(0) - yScale(d.Value))
           .attr('width', xScale.bandwidth())
           .attr('fill', "#0197ae")
-          .on("click",function(d){
+          .on("click",function(d,i){
             barsvg.selectAll("rect").attr("fill","#0197ae")
             d3.select(this).attr("fill","#232323e8")
-            linechart(monthData[monthName.indexOf(d.Month)],monthName.indexOf(d.Month))
+            linechart(monthData[monthName.indexOf(i.Month)],monthName.indexOf(i.Month))
           });
 
 
@@ -206,7 +206,7 @@ function createmap(stationData){
       map.addLayer(geoLayer);
     
       //Map-2
-      let map2 = L.map('map2').setView([41.85, -87.68], 12); // Chicago origins
+      let map2 = L.map('map2').setView([41.90, -87.68], 11); // Chicago origins
         let osmLayer = L.tileLayer( // 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png')
     'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors, &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>',
@@ -214,6 +214,8 @@ function createmap(stationData){
     noWrap: false,
     subdomains: 'abc'
   }).addTo(map2);
+
+  map2.scrollWheelZoom.disable();
 
   let geoLayer2 = L.geoJson(geoData, {
     pointToLayer: function (feature, latlng) {
@@ -458,6 +460,8 @@ function getGeoDataPoints(data) {
       noWrap: false,
       subdomains: 'abc'
     }).addTo(map3);
+
+    map3.scrollWheelZoom.disable();
 
     let geoData = getGeoDataPoints(stationData)
 
