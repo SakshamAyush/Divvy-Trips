@@ -10,7 +10,6 @@ function brushableScatterplot(){
 
   /*var height = 700
   var width = 700
-
   const margin = { left: 70, top: 10, right: 80, bottom: 50 }*/
 
   let margin = ({top: 10, right: 50, bottom: 50, left: 55});
@@ -48,11 +47,9 @@ function brushableScatterplot(){
   /*x = d3.scaleLinear()
         .domain(d3.extent(divvyData, d => d.age)).nice()
         .range([margin.left, width - margin.right])
-
   y = d3.scaleLinear()
       .domain(d3.extent(divvyData, d => d.tripduration)).nice()
       .range([height - margin.bottom, margin.top] )
-
   xAxis = (g, scale, label) =>
   g.attr('transform', `translate(0, ${height})`)
       .call(d3.axisBottom(scale))
@@ -62,15 +59,12 @@ function brushableScatterplot(){
           .attr('stroke', '#d3d3d3')
           .attr('y1', -height)
           .attr('y2', 0))
-
     .append('text')
       .attr('x', width / 2)
       .attr('y', 40)
       .attr('fill', 'black')
       .attr('text-anchor', 'middle')
       .text(label)
-
-
   yAxis = (g, scale, label) => 
     g.call(d3.axisLeft(scale))
         .call(g => g.select('.domain').remove())
@@ -86,7 +80,6 @@ function brushableScatterplot(){
         .attr('fill', 'black')
         .attr('dominant-baseline', 'middle')
         .text(label)
-
   const g = svg.append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
   
@@ -156,7 +149,6 @@ function brushableScatterplot(){
 function barChart(){
 
   /*const margin = { left: 180, top: 10, right: 100, bottom: 10 }
-
   var height = 700
   var width = 700*/
 
