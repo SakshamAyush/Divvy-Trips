@@ -1,9 +1,6 @@
 const parseData = async () => {
 
-<<<<<<< HEAD
     divvy = await d3.csv("Data/Divvy_2019_Viz2_Sample.csv");
-=======
->>>>>>> 9e7b88aed9ea5a52fc36efee4d92570cc4e769cc
     multiLink();
   
 };
