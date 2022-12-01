@@ -1,7 +1,15 @@
-const parseData = async () => {
+parseData = async () => {
 
     divvy = await d3.csv("Data/Divvy_2019_Viz2_Sample.csv");
-    multiLink();
+    //multiLink();
+    const scatter = brushableScatterplot();
+    const bar = barChart();
+    //console.log(scatter)
+    
+    d3.select(scatter).on('input', () => {
+      bar.update(scatter.value);
+    });
+    bar.update(scatter.value);
   
 };
 
@@ -177,17 +185,5 @@ function barChart(){
   return Object.assign(svg.node(), { update });;
 
 };
-
-const multiLink = async () =>{
-  const scatter = brushableScatterplot();
-  const bar = barChart();
-  //console.log(scatter)
-  
-  d3.select(scatter).on('input', () => {
-    bar.update(scatter.value);
-  });
-  bar.update(scatter.value);
-}
-
 
 window.onload = parseData();
