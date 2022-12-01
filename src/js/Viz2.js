@@ -1,6 +1,6 @@
 parseData = async () => {
 
-    divvy = await d3.csv("Data/Divvy_2019_Viz2_Sample.csv");
+    let divvy = await d3.csv("Data/Divvy_2019_Viz2_Sample.csv");
     //multiLink();
     const scatter = brushableScatterplot();
     const bar = barChart();
