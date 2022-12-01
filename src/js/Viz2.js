@@ -1,32 +1,37 @@
 const parseData = async () => {
 
-    divvy = await d3.csv("Data/Divvy_2019_Viz2_Sample.csv");
+    divvyData = await d3.csv("../Divvy_2019_Viz2.csv");
+    divvy = divvyData.slice(0,10000)
     multiLink();
   
 };
 
 function brushableScatterplot(){
 
-  let margin = ({top: 10, right: 70, bottom: 50, left: 75});
-  let width = 810;
-  let height = 700;
+  /*var height = 700
+  var width = 700
+  const margin = { left: 70, top: 10, right: 80, bottom: 50 }*/
+
+  let margin = ({top: 10, right: 50, bottom: 50, left: 55});
+  let width = 650;
+  let height = 550;
 
   const initialValue = divvy;
 
-  let partOfDay = Array.from(new Set(divvy.map(d => d.Part_of_day)));
+  var partOfDay = Array.from(new Set(divvy.map(d => d.Part_of_day)));
         
-  let partColor = d3.scaleOrdinal().domain(partOfDay).range(d3.schemeCategory10);
+  var partColor = d3.scaleOrdinal().domain(partOfDay).range(d3.schemeCategory10);
           
   const svg = d3.select('#scatter')
                 .attr('width', width + margin.left + margin.right)
                 .attr('height', height + margin.top + margin.bottom)
                 .property('value', initialValue);
           
-  let xScale = d3.scaleLinear()
+  var xScale = d3.scaleLinear()
                   .domain(d3.extent(divvy, function(d) {return d.age;}))
                   .range([margin.left, width - margin.right])
         
-  let yScale = d3.scaleLinear()
+  var yScale = d3.scaleLinear()
                   .domain(d3.extent(divvy, function(d) {return d.tripduration;}))
                   .range([height - margin.bottom, margin.top])
         
@@ -37,9 +42,52 @@ function brushableScatterplot(){
   svg.append('g')
       .call(d3.axisLeft(yScale))
       .attr('transform', `translate(${margin.left},0)`)
+
+
+  /*x = d3.scaleLinear()
+        .domain(d3.extent(divvyData, d => d.age)).nice()
+        .range([margin.left, width - margin.right])
+  y = d3.scaleLinear()
+      .domain(d3.extent(divvyData, d => d.tripduration)).nice()
+      .range([height - margin.bottom, margin.top] )
+  xAxis = (g, scale, label) =>
+  g.attr('transform', `translate(0, ${height})`)
+      .call(d3.axisBottom(scale))
+      .call(g => g.select('.domain').remove())
+      .call(g => g.selectAll('.tick line')
+        .clone()
+          .attr('stroke', '#d3d3d3')
+          .attr('y1', -height)
+          .attr('y2', 0))
+    .append('text')
+      .attr('x', width / 2)
+      .attr('y', 40)
+      .attr('fill', 'black')
+      .attr('text-anchor', 'middle')
+      .text(label)
+  yAxis = (g, scale, label) => 
+    g.call(d3.axisLeft(scale))
+        .call(g => g.select('.domain').remove())
+        .call(g => g.selectAll('.tick line')
+          .clone()
+            .attr('stroke', '#d3d3d3')
+            .attr('x1', 0)
+            .attr('x2', width))
+      
+      .append('text')
+        .attr('x', -40)
+        .attr('y', height / 2)
+        .attr('fill', 'black')
+        .attr('dominant-baseline', 'middle')
+        .text(label)
+  const g = svg.append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+  
+  g.append("g").call(xAxis, x, 'Age');
+  g.append("g").call(yAxis, y, 'Trip Duration');*/
         
   // draw points
-  let dots = svg.selectAll('circle')
+  var dots = svg.selectAll('circle')
                 .data(divvy.filter(d => d.Part_of_day))
                 .join('circle')
                 .attr('cx', d => xScale(d.age))
@@ -51,18 +99,18 @@ function brushableScatterplot(){
   svg.append("text")
       .attr("class", "x label")
       .attr("text-anchor", "end")
-      .attr("x", width/2)
+      .attr("x", width-300)
       .attr("y", height - 6)
       .text("Age");
         
   svg.append("text")
       .attr("class", "y label")
       .attr("text-anchor", "end")
-      .attr("x", -200 )
-      .attr("y", 20)
+      .attr("x", 0-180)
+      .attr("y", 10)
       .attr("dy", ".75em")
       .attr("transform", "rotate(-90)")
-      .text("Trip Duration");
+      .text("Trip Duration in minutes");
 
 
   const brush = d3.brush()
@@ -100,15 +148,19 @@ function brushableScatterplot(){
 
 function barChart(){
 
-  const margin = {top: 10, right: 20, bottom: 50, left: 50};
+  /*const margin = { left: 180, top: 10, right: 100, bottom: 10 }
+  var height = 700
+  var width = 700*/
+
+  const margin = {top: 10, right: 20, bottom: 50, left: 100};
   
-  const width = 450;
-  const height = 300;
+  const width = 400;
+  const height = 200;
 
   const initialValue = divvy;
 
-  let partOfDay = Array.from(new Set(divvy.map(d => d.Part_of_day)));
-  let partColor = d3.scaleOrdinal().domain(partOfDay).range(d3.schemeCategory10);
+  var partOfDay = Array.from(new Set(divvy.map(d => d.Part_of_day)));
+  var partColor = d3.scaleOrdinal().domain(partOfDay).range(d3.schemeCategory10);
   
   const svg = d3.select('#scatterbar').property('value', initialValue);
 
@@ -129,10 +181,9 @@ function barChart(){
       .attr("transform", `translate(0, ${height})`);
   
   xAxisGroup.append("text")
-      .attr("x", 200)
+      .attr("x", width / 2)
       .attr("y", 40)
       .attr("fill", "black")
-      .attr("font_size",12)
       .attr("text-anchor", "middle")
       .text("Count");
   
