@@ -64,19 +64,19 @@ crossorigin=""></script>
     <div class="container" id="visual3">
         <div class="viz3title">Multi-linked Brushsable Scatterplot</div>
         <div style="width: 55%; float:left;">
-            <svg id = 'scatter' style=" width: 100%; height: 750; margin-top:20 "></svg>
+            <svg id = 'scatter' style=" width: 100%; height: 650; margin-top:20 "></svg>
         </div>
         <div style="width: 45%; float:right">
             <svg id = 'scatterbar' style=" width: 100%; height: 350; margin-top:20; margin-left: 20; "></svg>
             <div id= "textColumn" style="width: 100%; margin-top:20; margin-left: 20; ">
-                <text x="45" y="50" fill="black"> 
-                    <br>
-                    Sampling Details:<br>
-                    The original Dataset had over 3.25million entries with the part of the day distribution as follows- afternoon:43.37%, morning:32.81%, evening:21.41%, night:2.41%.<br>
+                <text id="info" x="45" y="50" fill="black"> 
+                <p><br>
+                    Sampling Details:<br><br>
+                    The original Dataset had over 3.25million entries with the part of the day distribution as follows- afternoon:43.37%, morning:32.81%, evening:21.41%, night:2.41%.<br></br>
                      Inorder to increase the interaction speed, the dataset was sampled down to 100,000 values maintaining the same distribution for the part of the day attribute.
+                </p>
                 </text>
             </div>
-        </div>
       </div>
 
     </div>

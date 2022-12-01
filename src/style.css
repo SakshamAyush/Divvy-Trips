@@ -137,6 +137,10 @@
     background-color: rgb(238, 240, 234);
 }
 
+#textColumn{
+    font-size: 20px;
+}
+
 .viz3title {
     color: #e4f7fa;
     background: #232323e8;

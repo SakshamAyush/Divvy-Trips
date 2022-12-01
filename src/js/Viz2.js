@@ -9,7 +9,7 @@ function brushableScatterplot(){
 
   let margin = ({top: 10, right: 70, bottom: 50, left: 75});
   let width = 810;
-  let height = 700;
+  let height = 650;
 
   const initialValue = divvy;
 
