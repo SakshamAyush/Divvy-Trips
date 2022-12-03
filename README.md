@@ -33,7 +33,7 @@ Initially we combined the dataset of all the four quarters into a single CSV fil
   7. 'gender' : the gender of the customer.
   8. 'birthyear' : the year of birth of the customer.
 
-The data frame contained 3,818,004 rows and 12 attributes(columns). There were no duplicate values in the data frame however, the data frame has some null values for the columns: gender and birthyear(probably because the customer refused to share that information). 
+The data frame contains 3,258,796 rows and 8 attributes(columns). There were no duplicate values in the data frame however, the data frame has some null values for the columns: gender and birthyear(probably because the customer refused to share that information). The rows mentioned above are after removing null values.
 The datatype of the columns of the dataframe were:
 
   1. Trip_id - int64
