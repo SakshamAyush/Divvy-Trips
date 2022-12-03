@@ -14,6 +14,9 @@ We chose the [Divvy’s Trip Dataset](https://ride.divvybikes.com/system-data) f
   4. Divvy_Trips_2019_Q4.csv - The csv file included the ride history of customers for the months of October, November and December of 2019.
   5. Divvy_Trips_2017_Q1Q2 - The csv included the latitude and longitude as well as the Divvy station capacity of Divvy Stations throughout Chicago.
 
+## Website Interface
+
+
 ## Dataset Description
 
 Initially we combined the dataset of all the four quarters into a single CSV file. After combining them all, the dataset had the following attributes:
@@ -65,7 +68,8 @@ We made the following hypothesis:
   - Older people would generally take shorter rides as compared to younger people.
   - More number of rides would be taken in the evening period by younger people.
   
-#### Visualizaion
+#### Visualization
+
 The tripduration of the rides were initially in seconds, we convetrted it to minutes. We then extracted a new column called ‘hour’ from the start_time attribute to find the hour of the day in which the divvy ride was started.
 Then we divided the hour attribute into 4 categories [morning, afternoon, evening, night] to find out in which part of the day the ride was taken. The categories were:
   1. Morning - Ride started between 5am to 11am
@@ -91,6 +95,8 @@ Inorder to increase the speed of interactive visualizations we sampled the datas
   4. Night - 2.41%
 
 The same distribution was followed after sampling down the from 3.2million values to around 100,000 values.
+
+##### Divvy Ride duration for each age by which part of the day the ride was taken in.
 
 ![mlbsp](https://user-images.githubusercontent.com/42165851/205424490-ef1e7697-8df7-47fe-ba15-4dfa2116f82c.png)
 
