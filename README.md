@@ -66,14 +66,14 @@ We made the following hypothesis:
   - More number of rides would be taken in the evening period by younger people.
   
 #### Visualizaion
-We extracted a new column called ‘hour’ from the start_time attribute to find the hour of the day in which the divvy ride was started.
+The tripduration of the rides were initially in seconds, we convetrted it to minutes. We then extracted a new column called ‘hour’ from the start_time attribute to find the hour of the day in which the divvy ride was started.
 Then we divided the hour attribute into 4 categories [morning, afternoon, evening, night] to find out in which part of the day the ride was taken. The categories were:
   1. Morning - Ride started between 5am to 11am
   2. Afternoon -  Ride started between 12pm to 5pm
   3. Evening - Ride started between 6pm to 10pm
   4. Night - Ride started between 11pm to 4am
   
-  We then made a multi-linked view of Brushable Scatterplot of Age V/S Trip Duration for all the rides and it was linked to a horizontal bar chart which showed the count of the total trips that was taken in the 4 parts of the day[morning, afternoon, evening, night].
+We then made a multi-linked view of Brushable Scatterplot of Age V/S Trip Duration for all the rides and it was linked to a horizontal bar chart which showed the count of the total trips that was taken in the 4 parts of the day[morning, afternoon, evening, night].
 
 Some outliers like ‘age’= 238 and ‘tripduartion’ = 96,850 were also removed.
 
@@ -83,7 +83,13 @@ Some outliers like ‘age’= 238 and ‘tripduartion’ = 96,850 were also remo
 
 The brush will select the scatter points and the bar chart will show the data for the selected points.
 
-Inorder to increase the speed of interactive visualizations the sampled dataset was further sampled down to around 120,000 rows.
+Inorder to increase the speed of interactive visualizations we sampled the dataset. The initial distribution of the part of the day attribute were:
+  1. Morning - 32.81%
+  2. Afternoon -  43.37%
+  3. Evening - 21.41%
+  4. Night - 2.41%
+
+The same distribution was followed after sampling down the from 3.2million values to around 100,000 values.
 
 ![Screenshot 2022-11-04 174439](https://user-images.githubusercontent.com/42165851/200085478-058e56bf-908f-420c-9853-360b703949b4.png)
 
