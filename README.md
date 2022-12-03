@@ -92,8 +92,7 @@ Inorder to increase the speed of interactive visualizations we sampled the datas
 
 The same distribution was followed after sampling down the from 3.2million values to around 100,000 values.
 
-![scatter1](https://user-images.githubusercontent.com/42165851/205424442-23a932ab-4577-40a7-9222-59acf67b4a43.png)
-
+![mlbsp](https://user-images.githubusercontent.com/42165851/205424490-ef1e7697-8df7-47fe-ba15-4dfa2116f82c.png)
 
 #### Conclusion 
   - The first hypothesis was true, as more rides were taken by people between 0-50 years of age.
