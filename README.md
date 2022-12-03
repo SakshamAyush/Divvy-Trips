@@ -77,9 +77,10 @@ We then made a multi-linked view of Brushable Scatterplot of Age V/S Trip Durati
 
 Some outliers like ‘age’= 238 and ‘tripduartion’ = 96,850 were also removed.
 
-![Screenshot 2022-11-01 052945](https://user-images.githubusercontent.com/42165851/200084914-660f116f-49b6-45ad-8634-9d58d07ab5e8.png)
+![scatter1](https://user-images.githubusercontent.com/42165851/205424424-c5688d05-312a-44e2-9d03-c10b3039e0fd.png)
 
-![Screenshot 2022-11-01 053005](https://user-images.githubusercontent.com/42165851/200084918-066dd16c-ff1a-4215-b9c0-496c2622a7a1.png)
+![bar1](https://user-images.githubusercontent.com/42165851/205424429-e7afe2c7-29b0-44fd-8081-2a215dcf9456.png)
+
 
 The brush will select the scatter points and the bar chart will show the data for the selected points.
 
@@ -91,7 +92,7 @@ Inorder to increase the speed of interactive visualizations we sampled the datas
 
 The same distribution was followed after sampling down the from 3.2million values to around 100,000 values.
 
-![Screenshot 2022-11-04 174439](https://user-images.githubusercontent.com/42165851/200085478-058e56bf-908f-420c-9853-360b703949b4.png)
+![scatter1](https://user-images.githubusercontent.com/42165851/205424442-23a932ab-4577-40a7-9222-59acf67b4a43.png)
 
 
 #### Conclusion 
