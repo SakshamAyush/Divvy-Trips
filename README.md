@@ -1,8 +1,5 @@
 # Project - 3 (CS 424)
 
-## Website Link
-https://sayush2.people.uic.edu/CS424/project-3-afc-richmond/
-
 ## Introduction 
 
 ![divvy-logo](https://user-images.githubusercontent.com/42165851/193394487-ada998fc-02f8-4624-b3bd-49db0e392eb4.png)
@@ -16,6 +13,16 @@ We chose the [Divvy’s Trip Dataset](https://ride.divvybikes.com/system-data) f
   3. Divvy_Trips_2019_Q3.csv - The csv file included the ride history of customers for the months of July, August and September of 2019.
   4. Divvy_Trips_2019_Q4.csv - The csv file included the ride history of customers for the months of October, November and December of 2019.
   5. Divvy_Trips_2017_Q1Q2 - The csv included the latitude and longitude as well as the Divvy station capacity of Divvy Stations throughout Chicago.
+  
+## Website
+
+Website Link - https://sayush2.people.uic.edu/CS424/project-3-afc-richmond/
+
+### Interface
+
+The basic interface of our website is as shown, clicking on arrows at the end of screen will direct you to the next Visualization.
+
+<img width="1454" alt="image" src="https://user-images.githubusercontent.com/42735975/205429054-e8cf5ada-b18c-4cd4-810e-cae920927e1a.png">
 
 
 ## Dataset Description
