@@ -113,7 +113,7 @@ We thought the best way to answer these questions would be through a geographica
 ### Conclusion
   - Our hypothesis was correct, Downtown Chicago has the majority Divvy Stations with high capacity, and the most trips were made from here as well.
   - Field Museum has the highest station capacity of all the Divvy Stations in Chicago, with a capacity of 51.
-  - Navy Pier (Streeter Drive & Grand Ave) Divvy Station has the most number of trips taken.
+  - Canal St & Adams St. Divvy Station has the most number of trips taken.
 
 
 ## Visualization 4
