@@ -1,5 +1,8 @@
 # Project - 3 (CS 424)
 
+## Website Link
+https://sayush2.people.uic.edu/CS424/project-3-afc-richmond/
+
 ## Introduction 
 
 ![divvy-logo](https://user-images.githubusercontent.com/42165851/193394487-ada998fc-02f8-4624-b3bd-49db0e392eb4.png)
