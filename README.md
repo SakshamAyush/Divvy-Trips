@@ -200,6 +200,9 @@ To answer the questions we were asking, we decided to make three visualizations,
 
 <img width="1458" alt="image" src="https://user-images.githubusercontent.com/42735975/205427666-673e1982-4166-4bb6-ae3b-388772034366.png">
 
+<img width="1454" alt="image" src="https://user-images.githubusercontent.com/42735975/205428066-82742bff-42d5-4455-84ec-177d87095389.png">
+
+
 ### Conclusion 
 
 On looking at the results for different Divvy Stations, we had the following conclusions:
