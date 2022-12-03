@@ -96,7 +96,7 @@ We made the following hypothesis:
   - The Divvy stations around Downtown Chicago would have the most capacity along with the most trips taken from them, since most offices and tourist attractions are situated in Downtown Chicago.
   
 ### Visualization
-We thought the best way to answer these questions would be through a geographical map. Since both questions relate to the Divvy Stations and there are 400 of them, visualizing them through any other plot, would reuslt in a clustered visualization where it would be hard to get any kind of insights. Unlike Question 2, we did not make a linked Visualization, instead we tried to answer each part of the quetion with a different visualization.
+We thought the best way to answer these questions would be through a geographical map. Since both questions relate to the Divvy Stations and there are 400 of them, visualizing them through any other plot, would reuslt in a clustered visualization where it would be hard to get any kind of insights. Unlike Visualization 1, we did not make a linked Visualization, instead we tried to answer each part of the question with a different visualization.
 
 <img width="1451" alt="image" src="https://user-images.githubusercontent.com/42735975/205426932-86edc00c-e6c3-48e6-beea-64d3e761fde6.png">
 
