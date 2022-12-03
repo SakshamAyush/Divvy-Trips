@@ -96,7 +96,7 @@ Inorder to increase the speed of interactive visualizations we sampled the datas
 
 The same distribution was followed after sampling down the from 3.2million values to around 100,000 values.
 
-##### Divvy Ride duration for each age by which part of the day the ride was taken in.
+#### Divvy Ride duration for each age by which part of the day the ride was taken in.
 
 ![mlbsp](https://user-images.githubusercontent.com/42165851/205424490-ef1e7697-8df7-47fe-ba15-4dfa2116f82c.png)
 
