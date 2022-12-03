@@ -1,4 +1,4 @@
-# Project - 3 (CS 424)
+# Final Project for CS 424 (University of Illinois at Chicago)
 
 ## Introduction 
 
