@@ -3,6 +3,10 @@
 ## Website Link
 https://sayush2.people.uic.edu/CS424/project-3-afc-richmond/
 
+## Observable Notebooks
+- [Notebook 1](https://observablehq.com/@deepanshuraghuvanshi/cs424-project-2)
+- [Notebook 2](https://observablehq.com/d/0d195b0a9b324908)
+
 ## Introduction 
 
 ![divvy-logo](https://user-images.githubusercontent.com/42165851/193394487-ada998fc-02f8-4624-b3bd-49db0e392eb4.png)
