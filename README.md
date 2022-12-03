@@ -16,6 +16,17 @@ We chose the [Divvy’s Trip Dataset](https://ride.divvybikes.com/system-data) f
 
 ## Website Interface
 
+### Vizualisation 1
+![interface1](https://user-images.githubusercontent.com/42165851/205424879-b55f86fd-9eda-4cef-ab8c-bc230f0690f6.png)
+
+### Visualization 2 and 3
+![interface2](https://user-images.githubusercontent.com/42165851/205424889-0e79e741-23ab-420e-a316-0507f6100a74.png)
+
+### Viusalization 4
+![interface3](https://user-images.githubusercontent.com/42165851/205424894-245e3308-12f2-41c2-af2f-2e5d0f65cd18.png)
+
+### Visualization 5 and 6
+![interface4](https://user-images.githubusercontent.com/42165851/205424899-1c0973ec-3bf2-44ef-89e4-b7ac9f0c92be.png)
 
 ## Dataset Description
 
